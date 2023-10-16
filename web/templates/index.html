@@ -1,14 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="container-fluid">
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Alumnos</h1>
-
-    <!-- DataTales Example -->
+    <h1 class="h3 mb-2 text-gray-800">Listado de Alumnos</h1>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Listado</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Alumnos</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -22,14 +18,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- LISTADO DE ALUMNOS -->
-                        <tr>
-                            <td>1</td>
-                            <td>César Mayta</td>
-                            <td>cesarmayta@tecsup.edu.pe</td>
-                            <td></td>
-                        </tr>
-                        <!----------------------------->
+<!-- LISTADO DE ALUMNOS -->
+{%for alumno in alumnos %}
+<tr>
+    <td>{{alumno.alumno_id}}</td>
+    <td>{{alumno.alumno_nombre}}</td>
+    <td>{{alumno.alumno_email}}</td>
+    <td>
+        <form method="post" action="{% url 'web:eliminar_alumno' alumno.alumno_id %}">
+            {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+            Eliminar
+        </button>
+        </form>
+    </td>
+</tr>
+{% endfor %}
+<!----------------------------->
+
                     </tbody>
                 </table>
             </div>
